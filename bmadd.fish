@@ -17,7 +17,7 @@ function bmadd
 #     return 2
 #   end
 
-#   if [ -n "$newid" ]; then
+#   if test -n $newid ; then
 #     if __bm_id_list | grep -F -x "$newid" > /dev/null; then
 #       echo "$newid is already used as bm id" 1>&2
 #       return 3
