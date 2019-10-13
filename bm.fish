@@ -1,22 +1,26 @@
 #!/usr/local/bin/fish
 
+set -x BMRC ~/.bmrc
+
 function __bm_get
-#   escaped_bmid=$(echo "$1" | sed -e 's/[^a-zA-Z0-9<>]/\\&/g')
-#   cat $BMRC | grep -E "^${escaped_bmid}\\|" | cut -d '|' -f 2 | head -n 1
+    set escaped_bmid `(echo "$1" | sed -e 's/[^a-zA-Z0-9<>]/\\&/g')`
+    cat $BMRC | grep -E "^\${escaped_bmid}\\|" | cut -d '|' -f 2 | head -n 1
 end
 
 function bm
-#   local bmid=$1
-#   if test -z "$bmid" ; then
-#     bmls
-#     return
-#   end
+    set -l bmid $1
 
-#   local bmdir=$(__bm_get "$bmid")
-#   if test -z "$bmdir" ; then
-#     echo "$bmid is not in bm list" 1>&2
-#     return 1
-#   end
+    if test -z "$bmid"
+        # just call showlist, bmls command
+        bmls
+        return
+    end
 
-#   cd "$bmdir"
+    set -l bmdir `(__bm_get "$bmid")`
+    if test -z "$bmdir"
+        echo "$bmid is not in bm list" 1>&2
+        return 1
+    end
+
+    cd "$bmdir"
 end
