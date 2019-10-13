@@ -1,38 +1,41 @@
 #!/usr/local/bin/fish
 
+set -x BMRC ~/.bmrc
 function __bm_path_list
-  cat $BMRC | cut -d '|' -f 2
+    cat $BMRC | cut -d '|' -f 2
 end
 
 function __bm_id_list
-  cat $BMRC | cut -d '|' -f 1
+    cat $BMRC | cut -d '|' -f 1
 end
 
 function bmadd
-#  local bmdir=$PWD
-#   local newid=$1
+    set -l bmdir $PWD
+    set -l newid $1
 
-#   if __bm_path_list | grep -F -x "$bmdir" > /dev/null; then
-#     echo "$bmdir is already in bm list" 1>&2
-#     return 2
-#   end
+    if __bm_path_list | grep -F -x "$bmdir" > /dev/null
+        echo "$bmdir is already in bm list" 1>&2
+        return 2
+    end
 
-#   if test -n $newid ; then
-#     if __bm_id_list | grep -F -x "$newid" > /dev/null; then
-#       echo "$newid is already used as bm id" 1>&2
-#       return 3
-#     end
-#   end
+    # not empthy
+    if test -n "$newid"
+        if __bm_id_list | grep -F -x "$newid" > /dev/null
+            echo "$newid is already used as bm id" 1>&2
+            return 3
+        end
+    end
 
-#   if test -z $newid ; then
-#     local maxid
-#     maxid=$(__bm_id_list | grep '^[0-9][0-9]*$' | sort -n -r | head -1)
-#     if [ -n "$maxid" ] && [ "$maxid" -ge 1 ]; then
-#       newid=$((maxid + 1))
-#     else
-#       newid=1
-#     end
-#   end
+    # is empty
+    if test -z "$newid"
+        set -l maxid
+        set maxid `(__bm_id_list | grep '^[0-9][0-9]*\$' | sort -n -r | head -1)`
+        if test -n "$maxid" && test "$maxid" -ge 1
+            # set newid $((maxid + 1))
+        else
+            set newid 1
+        end
+    end
 
-#   echo "$newid|$bmdir" >> $BMRC
+    echo "$newid|$bmdir" >> $BMRC
 end
