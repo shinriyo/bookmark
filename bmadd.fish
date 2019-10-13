@@ -11,7 +11,7 @@ end
 
 function bmadd
     set -l bmdir $PWD
-    set -l newid $1
+    set -l newid $argv[1]
 
     if __bm_path_list | grep -F -x "$bmdir" > /dev/null
         echo "$bmdir is already in bm list" 1>&2
