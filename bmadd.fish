@@ -29,9 +29,11 @@ function bmadd
     # is empty
     if test -z "$newid"
         set -l maxid
-        set maxid `(__bm_id_list | grep '^[0-9][0-9]*\$' | sort -n -r | head -1)`
+        # get most large id
+        set maxid (__bm_id_list | grep '^[0-9][0-9]*$' | sort -n -r | head -1)
+
         if test -n "$maxid" && test "$maxid" -ge 1
-            set newid (math maxid + 1)
+            set newid (math $maxid + 1)
         else
             set newid 1
         end
