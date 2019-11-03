@@ -52,7 +52,7 @@ ex) `bm hoge`
 * Edit path setting file
 It runs vi editor and open modify `~/.bmrc` file.
 ```
-vmvi
+bmvi
 ```
 
 ## help
