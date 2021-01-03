@@ -9,7 +9,7 @@ It easily add your path as bookmark. And you can move ther path quickly.
 With [Fisher](https://github.com/jorgebucaran/fisher)
 
 ```
-fisher add shinriyo/bookmark
+fisher install shinriyo/bookmark
 ```
 
 ## commands
